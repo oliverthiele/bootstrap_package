@@ -385,3 +385,14 @@ config {
     concatenateJs = {$config.concatenateJs}
     concatenateCss = {$config.concatenateCss}
 }
+
+// todo condition
+page.10 {
+    dataProcessing.10 {
+        levels = 3
+    }
+    settings {
+        navbars.main.variant = 2
+    }
+}
+

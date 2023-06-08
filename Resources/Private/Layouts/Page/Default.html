@@ -7,7 +7,15 @@
     <a class="visually-hidden-focusable" href="#page-content">
         <span>{f:translate(key: 'skiptomaincontent', extensionName: 'bootstrap_package')}</span>
     </a>
-    <f:render partial="Navigation/Main" arguments="{_all}" />
+    <f:if condition="{settings.navbars.main.variant}">
+        <f:then>
+            <f:render partial="Navigation/Variants/{settings.navbars.main.variant}/Main" arguments="{_all}" />
+        </f:then>
+        <f:else>
+            <f:render partial="Navigation/Main" arguments="{_all}" />
+        </f:else>
+    </f:if>
+
     <f:render section="Border" optional="true" />
     <f:render partial="Navigation/Breadcrumb" arguments="{_all}" />
 

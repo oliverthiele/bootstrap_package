@@ -1,0 +1,186 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:bk2k="http://typo3.org/ns/BK2K/BootstrapPackage/ViewHelpers"
+      lang="en" data-namespace-typo3-fluid="true">
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary"
+     aria-label="{f:translate(key: 'main-navigation.label', extensionName: 'bootstrap_package')}">
+    <div class="container">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mainnavigation" aria-controls="mainnavigation"
+                aria-expanded="false"
+                aria-label="{f:translate(key: 'togglenavigation', extensionName: 'bootstrap_package')}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainnavigation">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <f:for each="{mainnavigation}" as="page" iteration="pageIterator">
+                    <f:if condition="{page.hasSubpages}">
+                        <f:for each="{page.children}" as="subpage" iteration="subpageIterator">
+                            <f:if condition="{subpage.hasSubpages}">
+                                <f:variable name="megamenu-{page.data.uid}" value="1"/>
+                            </f:if>
+                        </f:for>
+                    </f:if>
+                    <f:if condition="{page.spacer}">
+                        <f:then>
+                            </ul><ul class="navbar-nav ms-auto">
+                        </f:then>
+                        <f:else>
+                            <li class="nav-item">
+                                <f:if condition="{page.active}">
+                                    <f:then>
+                                        <a class="nav-link active" aria-current="page" href="{page.link}">{page.title}</a>
+                                    </f:then>
+                                    <f:else>
+                                        <a class="nav-link" href="{page.link}">{page.title}</a>
+                                    </f:else>
+                                </f:if>
+
+                                <!-- Subnav level 2-->
+                                <f:if condition="{page.hasSubpages}">
+                                    <f:if condition="{megamenu-{page.data.uid}} == 1">
+                                        <f:then>
+                                            <li class="nav-item dropdown position-static toggle-megamenu">
+                                                <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="visually-hidden">Expand {page.title}</span>
+                                                </button>
+                                                <div class="dropdown-menu level-2 p-4 w-100" role="dialog">
+                                                    <div class="row">
+                                                        <div class="col-9">
+                                                            <p class="lead">{page.title}</p>
+                                                        </div>
+                                                        <div class="col-3 text-end">
+                                                            <button type="button" class="btn-close" aria-label="Close"></button>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <f:for each="{page.children}" as="subpage">
+                                                            <div class="col-12 col-md-6 col-xl-3">
+                                                                <!-- Mega for {page.data.uid}: -->
+                                                                <strong>
+                                                                    <f:if>
+                                                                        <f:then>
+                                                                            <a class="nav-link active"
+                                                                               aria-current="page"
+                                                                               href="{subpage.link}">
+                                                                                {subpage.title}
+                                                                            </a>
+                                                                        </f:then>
+                                                                        <f:else>
+                                                                            <a class="nav-link" href="{subpage.link}">
+                                                                                {subpage.title}
+                                                                            </a>
+                                                                        </f:else>
+                                                                    </f:if>
+                                                                </strong>
+                                                                <ul class="px-3 nav flex-column nav-level-3 mb-3">
+                                                                    <f:for each="{subpage.children}" as="subsubpage">
+                                                                        <li class="nav-item">
+                                                                            <f:if condition="{subsubpage.spacer} == 1">
+                                                                                <f:then>
+                                                                                    <hr class="dropdown-divider">
+                                                                                </f:then>
+                                                                                <f:else>
+                                                                                    <f:if condition="{subsubpage.active}">
+                                                                                        <f:then>
+                                                                                            <a class="nav-link active"
+                                                                                               aria-current="page"
+                                                                                               href="{subsubpage.link}">{subsubpage.title}</a>
+                                                                                        </f:then>
+                                                                                        <f:else>
+                                                                                            <a class="nav-link" href="{subsubpage.link}">{subsubpage.title}</a>
+                                                                                        </f:else>
+                                                                                    </f:if>
+                                                                                </f:else>
+                                                                            </f:if>
+                                                                        </li>
+                                                                    </f:for>
+                                                                </ul>
+                                                            </div>
+                                                        </f:for>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        </f:then>
+                                        <f:else>
+                                            <li class="nav-item dropdown">
+                                                <button class="nav-link dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="visually-hidden">Expand {page.title}</span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <f:for each="{page.children}" as="subpage">
+                                                        <li>
+                                                            <f:if condition="{subpage.spacer} == 1">
+                                                                <f:then>
+                                                                    <hr class="dropdown-divider">
+                                                                </f:then>
+                                                                <f:else>
+                                                                    <f:if condition="{subpage.active}">
+                                                                        <f:then>
+                                                                            <a class="dropdown-item active"
+                                                                               aria-current="page"
+                                                                               href="{subpage.link}">{subpage.title}</a>
+                                                                        </f:then>
+                                                                        <f:else>
+                                                                            <a class="dropdown-item" href="{subpage.link}">
+                                                                                {subpage.title}
+                                                                            </a>
+                                                                        </f:else>
+                                                                    </f:if>
+                                                                </f:else>
+                                                            </f:if>
+                                                        </li>
+                                                    </f:for>
+                                                </ul>
+                                            </li>
+                                        </f:else>
+                                    </f:if>
+                                </f:if>
+                            </li>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<f:asset.css identifier="mainnavigation-variant-2">
+    #mainnavigation .dropdown-menu .nav-link {
+    padding-left:0;
+    padding-right:0;
+    }
+    #mainnavigation .dropdown-toggle::after {
+        margin-left:0;
+    }
+    #mainnavigation > ul>.nav-item:not(:first-child) {
+    border-left: 1px solid var(--bs-secondary);
+    }
+    #mainnavigation .toggle-megamenu a{
+    min-height: 44px;
+    min-width:44px;
+    }
+
+    #mainnavigation .dropdown-toggle:hover,
+    #mainnavigation .dropdown-toggle.show  {
+    background-color: var(--bs-primary);
+    color: #fff;
+    }
+
+    #mainnavigation .dropdown-toggle:after{
+    transition: color 0.4s, transform 0.4s, background-color 0.4s;
+    }
+    #mainnavigation .dropdown-toggle.show:after{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    }
+</f:asset.css>
+</html>
