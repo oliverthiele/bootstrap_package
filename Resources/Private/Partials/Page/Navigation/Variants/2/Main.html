@@ -45,7 +45,7 @@
                                                 <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span class="visually-hidden">Expand {page.title}</span>
                                                 </button>
-                                                <div class="dropdown-menu level-2 p-4 w-100" role="dialog">
+                                                <div class="dropdown-menu level-2 p-4 w-100">
                                                     <div class="row">
                                                         <div class="col-9">
                                                             <p class="lead">{page.title}</p>
@@ -56,9 +56,9 @@
                                                     </div>
 
 
-                                                    <div class="row">
+                                                    <div class="row" role="list">
                                                         <f:for each="{page.children}" as="subpage">
-                                                            <div class="col-12 col-md-6 col-xl-3">
+                                                            <div class="col-12 col-md-6 col-xl-3" role="listitem">
                                                                 <!-- Mega for {page.data.uid}: -->
                                                                 <strong>
                                                                     <f:if>
